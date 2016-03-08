@@ -2,19 +2,18 @@ import SourceableDataObject
 
 
 class Author(SourceableDataObject):
-
-    AUTH_ROOT   = "author"
+    AUTH_ROOT = "author"
 
     CLUST_KEY = "clusterid"
 
-    DOI_KEY     = "doi"
-    NAME_KEY    = "name"
-    AFFIL_KEY   = "affil"
-    ADDR_KEY    = "address"
-    EMAIL_KEY   = "email"
-    ORD_KEY     = "order"
+    DOI_KEY = "doi"
+    NAME_KEY = "name"
+    AFFIL_KEY = "affil"
+    ADDR_KEY = "address"
+    EMAIL_KEY = "email"
+    ORD_KEY = "order"
 
-    fieldArray = tuple([CLUST_KEY,NAME_KEY,AFFIL_KEY,ADDR_KEY,EMAIL_KEY,ORD_KEY])
+    fieldArray = tuple([CLUST_KEY, NAME_KEY, AFFIL_KEY, ADDR_KEY, EMAIL_KEY, ORD_KEY])
     privateFieldData = tuple([EMAIL_KEY])
 
     def __init__(self):
@@ -56,21 +55,21 @@ class Author(SourceableDataObject):
             if src is not None:
                 self.setSource(key, src)
 
-    #String xml, boolean sysData
+    # String xml, boolean sysData
     def buildXML(self, xml, sysData):
-        xml += ("<"+self.AUTH_ROOT+" "+self.ID_ATTR+"=\""+ self.getDatum(self.DOI_KEY, self.UNENCODED)+"\">")
+        xml += ("<" + self.AUTH_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY, self.UNENCODED) + "\">")
         for field in self.fieldArray:
             if not sysData and (field in self.privateFields):
                 continue
             if (self.getDatum(field, self.ENCODED)) is None:
                 continue
             if self.hasSourceData(field):
-                xml += "<"+field+" "+self.SRC_ATTR+"=\""+self.getSource(field)+"\">"
+                xml += "<" + field + " " + self.SRC_ATTR + "=\"" + self.getSource(field) + "\">"
             else:
-                xml += "<"+field+">"
+                xml += "<" + field + ">"
             xml += self.getDatum(field, self.ENCODED)
-            xml += "</"+field+">"
-        xml += "</"+self.AUTH_ROOT+">"
+            xml += "</" + field + ">"
+        xml += "</" + self.AUTH_ROOT + ">"
 
     def __eq__(self, other):
         for field in self.fieldArray:
