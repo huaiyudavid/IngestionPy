@@ -1,4 +1,4 @@
-import datetime.date
+import datetime.date as date
 import xml.etree.cElementTree as ET
 # import SafeText
 import SourceableDataObject
@@ -250,7 +250,7 @@ class Document(SourceableDataObject):
             if src is not None:
                 self.setSource(key, src)
 
-    # String xml, boolean sysData
+    # StringBuilder xml, boolean sysData
     def buildXML(self, xml, sysData):
         xml += ("<" + self.DOC_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY, self.UNENCODED) + "\">")
         for field in self.fieldArray:
