@@ -1,7 +1,12 @@
 import datetime.date as date
 import xml.etree.cElementTree as ET
-# import SafeText
+import SafeText
 import SourceableDataObject
+import StringBuilder
+import Author
+import Citation
+import DocumentFileInfo
+import Keyword
 
 
 class Document(SourceableDataObject):
@@ -199,7 +204,7 @@ class Document(SourceableDataObject):
         self.tags = tags
 
     def toXML(self, sysData, out=None):
-        xml = ""
+        xml = StringBuilder()
         self.buildXML(xml, sysData)
         return xml
 
@@ -232,12 +237,12 @@ class Document(SourceableDataObject):
                     keyword.fromXML(keyElt)
                     self.addKeyword(keyword)
                 continue
-            if child.tag == self.ACKS_KEY:
-                for ackElt in child.getchildren():
-                    ack = Acknowledgment()
-                    ack.fromXML(ackElt)
-                    self.addAcknowledgment(ack)
-                continue
+            # if child.tag == self.ACKS_KEY:
+            #     for ackElt in child.getchildren():
+            #         ack = Acknowledgment()
+            #         ack.fromXML(ackElt)
+            #         self.addAcknowledgment(ack)
+            #     continue
             if child.tag == self.FILEINFO_KEY:
                 fileInfo = DocumentFileInfo()
                 fileInfo.fromXML(child)

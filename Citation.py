@@ -1,4 +1,5 @@
 import MappedDataObject
+import StringBuilder
 
 
 class Citation(MappedDataObject):
@@ -74,7 +75,7 @@ class Citation(MappedDataObject):
         return self.keys
 
     def toXML(self, sysData, out=None):
-        xml = ""
+        xml = StringBuilder()
         self.buildXML(xml, sysData)
         return xml
 

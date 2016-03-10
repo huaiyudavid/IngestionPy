@@ -1,4 +1,6 @@
 import SourceableDataObject
+import StringBuilder
+import SafeText
 
 class Keyword(SourceableDataObject):
     KEYWORD_ROOT  = "keyword"
@@ -14,7 +16,7 @@ class Keyword(SourceableDataObject):
             self.addPrivateField(self.privateFieldData[i])
 
     def toXML(self, sysData, out=None):
-        xml = ""
+        xml = StringBuilder()
         self.buildXML(xml, sysData)
         return xml
 

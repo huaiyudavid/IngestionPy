@@ -1,4 +1,6 @@
 import SourceableDataObject
+import StringBuilder
+import SafeText
 
 
 class Author(SourceableDataObject):
@@ -35,7 +37,7 @@ class Author(SourceableDataObject):
         return self.CLUST_KEY in self.data
 
     def toXML(self, sysData, out=None):
-        xml = ""
+        xml = StringBuilder()
         self.buildXML(xml, sysData)
         return xml
 
