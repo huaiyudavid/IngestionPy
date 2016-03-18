@@ -1,6 +1,6 @@
-import SourceableDataObject
-import StringBuilder
-import SafeText
+from SourceableDataObject import SourceableDataObject
+from StringBuilder import StringBuilder
+from utility.SafeText import SafeText
 
 
 class Author(SourceableDataObject):

@@ -1,7 +1,8 @@
-from SafeText import SafeText
 import MappedDataObject
-from StringBuilder import StringBuilder
 from CheckSum import CheckSum
+from StringBuilder import StringBuilder
+from utility.SafeText import SafeText
+
 
 class DocumentFileInfo(MappedDataObject):
 

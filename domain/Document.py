@@ -1,12 +1,13 @@
 import datetime.date as date
-import xml.etree.cElementTree as ET
-import SafeText
-import SourceableDataObject
-import StringBuilder
-import Author
-import Citation
-import DocumentFileInfo
-import Keyword
+
+from Author import Author
+from Citation import Citation
+from Keyword import Keyword
+from SourceableDataObject import SourceableDataObject
+from StringBuilder import StringBuilder
+from utility.SafeText import SafeText
+from DocumentFileInfo import DocumentFileInfo
+from DocumentProperties import DocumentProperties
 
 
 class Document(SourceableDataObject):
@@ -44,8 +45,8 @@ class Document(SourceableDataObject):
         self.versionRepID = ""
         self.versionPath = ""
         self.versionDeprecated = False
-        self.documentProperties = DocumentProperties()  # Need to implement
-        self.fileInfo = DocumentFileInfo()  # Need to implement
+        self.documentProperties = DocumentProperties()
+        self.fileInfo = DocumentFileInfo()
         self.versionSpam = False
         self.reindex = True
         self.ncites = 0

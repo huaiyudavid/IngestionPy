@@ -1,6 +1,6 @@
-#needs SafeText
+from utility.SafeText import SafeText
 
-class MappedDataObject:
+class MappedDataObject(object):
     """
     Super-class for domain objects that support key-based data access.  Date
     items can be retrieved by name much like a properties object.

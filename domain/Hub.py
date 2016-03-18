@@ -1,4 +1,4 @@
-import datetime.date as date
+from datetime import date
 
 
 class Hub:
@@ -16,7 +16,7 @@ class Hub:
     def getUrl(self):
         return self.url
 
-    def setUrl(self):
+    def setUrl(self, url):
         self.url = url
 
     def getRepID(self):

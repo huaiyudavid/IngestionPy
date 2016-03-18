@@ -1,5 +1,5 @@
-import MappedDataObject
-import StringBuilder
+from MappedDataObject import MappedDataObject
+from StringBuilder import StringBuilder
 
 
 class Citation(MappedDataObject):

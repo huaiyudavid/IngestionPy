@@ -1,4 +1,4 @@
-import MappedDataObject
+from MappedDataObject import MappedDataObject
 
 
 class SourceableDataObject(MappedDataObject):

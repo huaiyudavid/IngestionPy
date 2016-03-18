@@ -1,12 +1,15 @@
-import SourceableDataObject
-import StringBuilder
-import SafeText
+from SourceableDataObject import SourceableDataObject
+from StringBuilder import StringBuilder
+from utility.SafeText import SafeText
+
 
 class Keyword(SourceableDataObject):
-    KEYWORD_ROOT  = "keyword"
+    KEYWORD_ROOT = "keyword"
 
-    DOI_KEY       = "doi"
-    KEYWORD_KEY   = "keyword"
+    DOI_KEY = "doi"
+    KEYWORD_KEY = "keyword"
+    ID_ATTR = "id"
+    SRC_ATTR = "src"
 
     fieldArray = tuple([KEYWORD_KEY])
 
@@ -35,8 +38,11 @@ class Keyword(SourceableDataObject):
 
     def buildXML(self, xml, sysData):
         if self.hasSourceData(self.KEYWORD_KEY):
-            xml += "<"+self.KEYWORD_ROOT+" "+self.ID_ATTR+"=\""+ self.getDatum(self.DOI_KEY, self.UNENCODED)+"\">"
+            xml += "<" + self.KEYWORD_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY,
+                                                                                        self.UNENCODED) + "\">"
         else:
-            xml += "<"+self.KEYWORD_ROOT+" "+self.ID_ATTR+"=\""+self.getDatum(self.DOI_KEY, self.UNENCODED)+"\" "+self.SRC_ATTR+"=\""+self.getSource(self.KEYWORD_KEY)+"\">"
+            xml += "<" + self.KEYWORD_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY,
+                                                                                        self.UNENCODED) + "\" " + self.SRC_ATTR + "=\"" + self.getSource(
+                self.KEYWORD_KEY) + "\">"
         xml += self.getDatum(self.KEYWORD_KEY, self.ENCODED)
-        xml += "</"+self.KEYWORD_ROOT+">"
+        xml += "</" + self.KEYWORD_ROOT + ">"
