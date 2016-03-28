@@ -17,6 +17,10 @@ class CheckSum:
         self.sha1 = sha1
 
     def getDOI(self):
+        """
+
+        :rtype: object
+        """
         return self.DOI
 
     def setDOI(self):

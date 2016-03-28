@@ -4,6 +4,7 @@ from FileInfoMapper import FileInfoMapper
 from ParsHedMapper import ParsHedMapper
 from ParscitMapper import ParscitMapper
 
+
 class BatchMapper:
     # in is a file
     @staticmethod
