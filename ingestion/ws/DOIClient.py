@@ -1,0 +1,1 @@
+#TODO: write this class, implement getDOI(int doiType)
