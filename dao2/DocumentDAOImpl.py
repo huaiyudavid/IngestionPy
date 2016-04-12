@@ -14,6 +14,7 @@ class DocumentDAOImpl:
     def initDao(self):
         self.connection = DatabaseUtil.get_connection(self.hostName, self.db, self.user, self.password)
 
+    #must call initDao first
     def insertDocument(self, doc):
         cursor = self.connection.cursor()
         #Note: timestamp is a string
@@ -57,5 +58,28 @@ class DocumentDAOImpl:
         cursor.close()
         self.connection.commit()
 
+    #must call initDao first
     def insertDocumentSrc(self, doc):
-        #TODO
+        cursor = self.connection.cursor()
+        DEF_INSERT_DOC_SRC_QUERY = "insert into papers_versionShadow values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
+        params = (
+            doc.getDatum(Document.DOI_KEY),
+            doc.getSource(Document.TITLE_KEY),
+            doc.getSource(Document.ABSTRACT_KEY),
+            doc.getSource(Document.YEAR_KEY),
+            doc.getSource(Document.VENUE_KEY),
+            doc.getSource(Document.VEN_TYPE_KEY),
+            doc.getSource(Document.PAGES_KEY),
+            doc.getSource(Document.VOL_KEY),
+            doc.getSource(Document.NUM_KEY),
+            doc.getSource(Document.PUBLISHER_KEY),
+            doc.getSource(Document.PUBADDR_KEY),
+            doc.getSource(Document.TECH_KEY),
+            doc.getSource(Document.CITES_KEY)
+        )
+
+        cursor.execute(DEF_INSERT_DOC_SRC_QUERY, params)
+        cursor.close()
+        self.connection.commit()
+
