@@ -6,6 +6,7 @@ from domain.Document import Document
 from domain.Author import Author
 from domain.Citation import Citation
 from utility.SafeText import SafeText
+import logging
 
 class SelfCitationFilter(object):
     """
@@ -13,15 +14,19 @@ class SelfCitationFilter(object):
     @param doc
     """
     def filterCitations(self,doc):
+        logger = logging.getLogger("citematch.SelfCitationFilter.SelfCitationFilter.filterCitations")
         authorKeys = set()
         for author in doc.getAuthors():
             key = self.buildNameKey(author.getDatum("name"))
+            logger.debug("paper authorkey : %s" % key)
             if key: authorKeys.add(key) 
 
         for citation in doc.getCitations():
             citation.setSelf(False)
             for name in citation.getAuthorNames():
-                if name in authorKeys:
+                citation_authorkey = self.buildNameKey(name)
+                if citation_authorkey in authorKeys:
+                    logging.debug("citation authorkey : %s"%citation_authorkey)
                     citation.setSelf(True)
                     break
 
@@ -30,8 +35,8 @@ class SelfCitationFilter(object):
     build a name key using a name
     """
     def buildNameKey(self,name):
-        # remove leading and trailing white spaces
-        tokens = name.strip().split(" +")
+        # remove leading and trailing white spaces, and split it by spaces
+        tokens = name.strip().split()
         key = None
         # use the entire name string or first_initial+last_name as the key
         if len(tokens) == 1:
