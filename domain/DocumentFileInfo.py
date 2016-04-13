@@ -1,4 +1,4 @@
-import MappedDataObject
+from MappedDataObject import MappedDataObject
 from CheckSum import CheckSum
 from StringBuilder import StringBuilder
 from utility.SafeText import SafeText

@@ -1,7 +1,10 @@
 from utility.SafeText import SafeText
 from utility.CSXConstants import CSXConstants
 from domain.Citation import Citation
-import xml.etree.ElementTree as ET
+from domain.Document import Document
+#import xml.etree.ElementTree as ET
+from lxml import etree as ET
+import logging
 
 
 
@@ -19,17 +22,19 @@ class ParscitMapper:
 
     @staticmethod
     def mapFromRoot(doc, root):
-        if root.tag != ParscitMapper.ALG_NAME:
-            raise Exception("Root name attribute is not what " + "was expected: found "+root.getAttributeValue("name")+ ", expected "+ParscitMapper.ALG_NAME)
+        logger = logging.getLogger("ingestion.datamappers.ParscitMapper.mapFromRoot")
+        if root.get("name") != ParscitMapper.ALG_NAME:
+            raise Exception("Root name attribute is not what was expected: found "+root.get("name")+ ", expected "+ParscitMapper.ALG_NAME)
 
         algName = root.get("name")
         algVers = root.get("version")
         src = algName + " " + algVers
 
-        doc.setSource(edu.psu.citeseerx.domain.Document.CITES_KEY, src)
+        doc.setSource(Document.CITES_KEY, src)
 
         listRoot = root.find("citationList")
-        for child in root.getchildren():
+        for child in listRoot.getchildren():
+            logger.debug("iterating citation children child.tag: "+child.tag)
             if child.tag.lower() == "citation".lower():
                 validStr = child.get("valid")
                 if validStr is not None:
@@ -40,8 +45,10 @@ class ParscitMapper:
 
     @staticmethod
     def mapCitation(citeElt):
+        logger = logging.getLogger("ingestion.datamappers.ParscitMapper.mapCitation")
         citation = Citation()
         for child in citeElt.getchildren():
+            logger.debug("child.tag = "+child.tag)
             if child.tag.lower() == "authors".lower():
                 ParscitMapper.mapAuthors(citation, child)
             if child.tag.lower() == "contexts".lower():
@@ -60,14 +67,14 @@ class ParscitMapper:
                     "do nothing"
             if child.tag.lower() == "journal".lower():
                 val = SafeText.decodeHTMLSpecialChars(child.text)
-                if len(val) > CSXConstants.MAX_DOC_VENU:
-                    val = val[0:CSXConstants.MAX_DOC_VENU]
+                if len(val) > CSXConstants.MAX_DOC_VENUE:
+                    val = val[0:CSXConstants.MAX_DOC_VENUE]
                 citation.setDatum(Citation.VENUE_KEY, val)
                 citation.setDatum(Citation.VEN_TYPE_KEY, "JOURNAL")
             if child.tag.lower() == "booktitle".lower():
                 val = SafeText.decodeHTMLSpecialChars(child.text)
-                if len(val) > CSXConstants.MAX_DOC_VENU:
-                    val = val[0:CSXConstants.MAX_DOC_VENU]
+                if len(val) > CSXConstants.MAX_DOC_VENUE:
+                    val = val[0:CSXConstants.MAX_DOC_VENUE]
                 citation.setDatum(Citation.VENUE_KEY, val)
                 citation.setDatum(Citation.VEN_TYPE_KEY, "CONFERENCE")
             if child.tag.lower() == "tech".lower():
