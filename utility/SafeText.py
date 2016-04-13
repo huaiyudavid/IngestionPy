@@ -1,3 +1,5 @@
+import re
+
 class SafeText:
     htmlSpecialChars = ["&", ">", "<", "\"", "'"]
     htmlCharEntities = ["&amp;", "&gt;", "&lt;", "&quot;", "&apos;"]
@@ -32,3 +34,18 @@ class SafeText:
         for i in range(len(SafeText.htmlSpecialChars)):
             replacement = replacement.replace(SafeText.htmlSpecialChars[i], SafeText.htmlCharEntities[i])
         return replacement
+
+    """
+    @param s
+    @return a String with all punctuation stripped, only keep alphanumeric,
+     digits, spaces, and apostrophe. replace multiple spaces with a single one
+    """
+    @staticmethod
+    def stripPunctuation(s):
+        s = re.sub(ur"[^\w\d'\s]+","",s)
+        s = re.sub(ur"  +"," ",s)
+        return s
+
+    @staticmethod
+    def normalizeText(s):
+        return SafeText.stripPunctuation(s)

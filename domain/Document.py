@@ -1,4 +1,4 @@
-import datetime.date as date
+from datetime import date
 
 from Author import Author
 from Citation import Citation

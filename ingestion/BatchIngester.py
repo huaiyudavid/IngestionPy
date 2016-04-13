@@ -14,14 +14,15 @@ class BatchIngester:
         self.entryPoint = entryPoint
 
     def ingest(self, xmlFile):
-        file = open(xmlFile)
+        file = open(xmlFile,'r')
         if not file:
             raise Exception("Exception in BatchMapper, no File Found")
 
         doc = BatchMapper.map(file)
+        file.close()
 
-        fileBase = FileUtils.stripExtension(xmlFile)
-        met = open(fileBase + ".met")
+        fileBase,fileExt = os.path.split(xmlFile)
+        met = open(fileBase + ".met", "r")
         CrawlMetaMapper.map(doc, met)
 
         duplicates = self.entryPoint.importDocument(doc, fileBase)
