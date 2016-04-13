@@ -46,15 +46,15 @@ class CSXDAOImpl:
             sum.setDOI(doi)
             self.fileDAO.insertChecksum(sum)
 
-        insertAuthors(doi, doc.getAuthors())
+        self.insertAuthors(doi, doc.getAuthors())
 
-        insertCitations(doi, doc.getCitations())
+        self.insertCitations(doi, doc.getCitations())
 
-        insertAcknowledgments(doi, doc.getAcknowledgments())
+        self.insertAcknowledgments(doi, doc.getAcknowledgments())
 
-        insertKeywords(doi, doc.getKeywords())
+        self.insertKeywords(doi, doc.getKeywords())
 
         for tag in doc.getTags():
             self.tagDAO.addTag(doi, tag.getTag())
 
-        repositoryService.writeXML(doc)
+        self.repositoryService.writeXML(doc)
