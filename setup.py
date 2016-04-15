@@ -13,6 +13,7 @@ setup(
     author = "Huaiyu Yang, Jian Wu",
     author_email = "davidyangrocs@gmail.com, fanchyna@gmail.com",
     url = "https://github.com/huaiyudavid/IngestionPy",
+    install_requires=["py2casefold"],
     packages = find_packages(exclude=("test","docs")),
     test_suite="nose.collector",
     tests_require=['nose']

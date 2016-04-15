@@ -2,14 +2,15 @@ from utility.DatabaseUtil import DatabaseUtil
 from domain.Document import Document
 from domain.DocumentFileInfo import DocumentFileInfo
 from datetime import datetime
+from conf import mysqldb
 
 class DocumentDAOImpl:
     def __init__(self):
         self.connection = None
-        self.hostName = "csxstaging01.ist.psu.edu"
-        self.db = "csx-devel"
-        self.user = "csx-devel"
-        self.password = "csx-devel"
+        self.hostName = mysqldb["hostname"]
+        self.db = mysqldb["db_citeseerx"]
+        self.user = mysqldb["username"]
+        self.password = mysqldb["password"]
 
     def initDao(self):
         self.connection = DatabaseUtil.get_connection(self.hostName, self.db, self.user, self.password)
