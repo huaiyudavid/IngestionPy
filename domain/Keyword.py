@@ -41,8 +41,7 @@ class Keyword(SourceableDataObject):
             xml += "<" + self.KEYWORD_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY,
                                                                                         self.UNENCODED) + "\">"
         else:
-            xml += "<" + self.KEYWORD_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY,
-                                                                                        self.UNENCODED) + "\" " + self.SRC_ATTR + "=\"" + self.getSource(
+            xml += "<" + self.KEYWORD_ROOT + " " + self.ID_ATTR + "=\"" + self.getDatum(self.DOI_KEY, self.UNENCODED) + "\" " + self.SRC_ATTR + "=\"" + self.getSource(
                 self.KEYWORD_KEY) + "\">"
         xml += self.getDatum(self.KEYWORD_KEY, self.ENCODED)
         xml += "</" + self.KEYWORD_ROOT + ">"

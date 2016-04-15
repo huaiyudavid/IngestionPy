@@ -14,6 +14,8 @@ class Author(SourceableDataObject):
     ADDR_KEY = "address"
     EMAIL_KEY = "email"
     ORD_KEY = "order"
+    ID_ATTR = "id"
+    SRC_ATTR = "src"
 
     fieldArray = tuple([CLUST_KEY, NAME_KEY, AFFIL_KEY, ADDR_KEY, EMAIL_KEY, ORD_KEY])
     privateFieldData = tuple([EMAIL_KEY])

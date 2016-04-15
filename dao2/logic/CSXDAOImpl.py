@@ -2,12 +2,16 @@ from dao2.FileDAOImpl import FileDAOImpl
 from domain.Document import Document
 
 class CSXDAOImpl:
-    def __init__(self, fileDAO=None, docDAO=None, hubDAO=None, tagDAO=None):
+    def __init__(self, fileDAO=None, docDAO=None, hubDAO=None, tagDAO=None, ackDAO=None):
         self.fileDAO = fileDAO
         self.docDAO = docDAO
         self.hubDAO = hubDAO
         self.tagDAO = tagDAO
+        self.ackDAO = ackDAO
         self.repositoryService = None
+
+    def setAckDAO(self, ackDAO):
+        self.ackDAO = ackDAO
 
     def setFileDAO(self, fileDAO):
         self.fileDAO = fileDAO
@@ -58,3 +62,10 @@ class CSXDAOImpl:
             self.tagDAO.addTag(doi, tag.getTag())
 
         self.repositoryService.writeXML(doc)
+
+    def insertAcknowledgments(self, doi, acks):
+        for ack in acks:
+            self.insertAcknowledgment(doi, ack)
+
+    def insertAcknowledgment(self, doi, ack):
+        self.ackDAO.insertAcknowledgment(doi, ack)

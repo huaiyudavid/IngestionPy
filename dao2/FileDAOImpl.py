@@ -29,6 +29,19 @@ class FileDAOImpl:
 
         return checkSumList
 
-    #TODO: insertChecksum(sum)
+    def insertChecksum(self, checksum):
+        DEF_INSERT_CHECKSUM_QUERY = "insert into checksum values (%s, %s, %s)"
+        cursor = self.connection.cursor()
+
+        params = (
+            checksum.getSha1(),
+            checksum.getDOI(),
+            checksum.getFileType()
+        )
+
+        cursor.execute(DEF_INSERT_CHECKSUM_QUERY, params)
+        cursor.close()
+        self.connection.commit()
+
 
 

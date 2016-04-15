@@ -1,5 +1,6 @@
 from MappedDataObject import MappedDataObject
 from StringBuilder import StringBuilder
+from utility.SafeText import SafeText
 
 
 class Citation(MappedDataObject):
@@ -22,6 +23,8 @@ class Citation(MappedDataObject):
     RAW_KEY = "raw"
     PAPERID_KEY = "paperid"
     CONTEXT_KEY = "contexts"
+    ID_ATTR = "id"
+    CONTEXT_TAG = "context"
 
     fieldArray = tuple(
         [CLUST_KEY, AUTHORS_KEY, TITLE_KEY, VENUE_KEY, VEN_TYPE_KEY, YEAR_KEY, PAGES_KEY, EDITORS_KEY, PUBLISHER_KEY,
@@ -38,7 +41,7 @@ class Citation(MappedDataObject):
             self.addPrivateField(self.privateFieldData[i])
 
     def isSelf(self):
-        return self.self
+        return self.isSelf
 
     def setSelf(self, isSelf):
         self.isSelf = isSelf

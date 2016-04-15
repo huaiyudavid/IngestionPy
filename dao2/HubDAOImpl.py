@@ -50,9 +50,52 @@ class HubDAOImpl:
         if not urlsList:
             return 0
         else:
-            urlsList.pop(0)
+            return long(urlsList.pop(0))
 
+    def insertHub(self, hub):
+        DEF_INSERT_HUB_STMT = "insert into hubUrls values (NULL, %s, %s, %s)"
+        cursor = self.connection.cursor()
 
-#TODO: insertHub(hub)
-#TODO: getUrlID(url)
-#TODO: insertHubMapping(uid, hid)
+        params = (
+            hub.getUrl(),
+            str(hub.getLastCrawled()),
+            hub.getRepID()
+        )
+
+        cursor.execute(DEF_INSERT_HUB_STMT, params)
+        generatedKey = long(cursor.lastrowid)
+        cursor.close()
+        self.connection.commit()
+        return generatedKey
+
+    def getUrlID(self, url):
+        DEF_GET_URLID_QUERY = "select id from urls where url=%s"
+        cursor = self.connection.cursor()
+
+        params = (url)
+
+        cursor.execute(DEF_GET_URLID_QUERY, params)
+        urlsList = list()
+        urls = cursor.fetchall()
+        for urli in urls:
+            urlsList.append(urli[0])
+
+        cursor.close()
+
+        if not urlsList:
+            return 0
+        else:
+            return long(urlsList.pop(0))
+
+    def insertHubMapping(self, uid, hid):
+        DEF_INSERT_HUBMAP_STMT = "insert into hubMap values (NULL, %d, %d)"
+        cursor = self.connection.cursor()
+
+        params = (
+            long(uid),
+            long(hid)
+        )
+
+        cursor.execute(DEF_INSERT_HUBMAP_STMT, params)
+        cursor.close()
+        self.connection.commit()

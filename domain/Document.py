@@ -32,6 +32,8 @@ class Document(SourceableDataObject):
     CITES_KEY = "citations"
     ACKS_KEY = "acknowledgments"
     FILEINFO_KEY = "fileInfo"
+    ID_ATTR = "id"
+    SRC_ATTR = "src"
 
     fieldArray = tuple(
         [CLUST_KEY, TITLE_KEY, ABSTRACT_KEY, YEAR_KEY, VENUE_KEY, VEN_TYPE_KEY, PAGES_KEY, VOL_KEY, NUM_KEY,
@@ -268,7 +270,7 @@ class Document(SourceableDataObject):
                     author.buildXML(xml, sysData)
                 xml += "</" + self.AUTHORS_KEY + ">"
                 continue
-            if field == self.CITES_KEY and not self.citations:
+            if field == self.CITES_KEY and self.citations:
                 if self.hasSourceData(self.CITES_KEY):
                     xml += "<" + self.CITES_KEY + " " + self.SRC_ATTR + "=\"" + self.getSource(self.CITES_KEY) + "\">"
                 else:
@@ -277,7 +279,7 @@ class Document(SourceableDataObject):
                     citation.buildXML(xml, sysData)
                 xml += "</" + self.CITES_KEY + ">"
                 continue
-            if field == self.ACKS_KEY and not self.acknowledgments:
+            if field == self.ACKS_KEY and self.acknowledgments:
                 xml += "<" + self.ACKS_KEY + ">"
                 for acknowledgment in self.acknowledgments:
                     acknowledgment.buildXML(xml, sysData)
