@@ -1,4 +1,6 @@
 import re
+import unicodedata
+from py2casefold import casefold
 
 class SafeText:
     htmlSpecialChars = ["&", ">", "<", "\"", "'"]
@@ -49,3 +51,18 @@ class SafeText:
     @staticmethod
     def normalizeText(s):
         return SafeText.stripPunctuation(s)
+
+    """
+    do a caseless equal between two string variables normalized using NFKD
+    """
+    @staticmethod
+    def caseless_equal(left,right):
+        return SafeText.normalize_caselsss(left) == normalize_caseless(right)
+   
+    """
+    normalize a text string using NFKD
+    ref: http://stackoverflow.com/questions/319426
+    """
+    @staticmethod
+    def normalize_caseless(text):
+        return unicodedata.normalize("NFKD",text.casefold())
