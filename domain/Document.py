@@ -34,6 +34,7 @@ class Document(SourceableDataObject):
     FILEINFO_KEY = "fileInfo"
     ID_ATTR = "id"
     SRC_ATTR = "src"
+    INCLUDE_SYS_DATA = True
 
     fieldArray = tuple(
         [CLUST_KEY, TITLE_KEY, ABSTRACT_KEY, YEAR_KEY, VENUE_KEY, VEN_TYPE_KEY, PAGES_KEY, VOL_KEY, NUM_KEY,

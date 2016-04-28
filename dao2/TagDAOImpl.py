@@ -1,3 +1,4 @@
+from utility.DatabaseUtil import DatabaseUtil
 
 class TagDAOImpl:
     def __init__(self):
